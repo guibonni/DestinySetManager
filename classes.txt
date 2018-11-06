@@ -1,0 +1,63 @@
+Equipamento (
+	int: Id,
+	String: Nome,
+	int: Poder,
+	String: Raridade,
+	String: Categoria,
+	Vantagem: Vantagem 1,
+	Vantagem: Vantagem 2,
+	Vantagem: Vantagem 3,
+	Vantagem: Vantagem 4
+)
+
+Armadura extends Equipamento (
+	String: Classe,
+	Modificador: Mod,
+	int: Resiliencia,
+	int: Mobilidade,
+	int: Recuperação
+)
+
+Arma extends Equipamento (
+	String: Elemento,
+	Modificador: Mod,
+	Vantagem: Mira,
+	Vantagem: Cano,
+	Vantagem: Municao,
+	Vantagem: Carregador
+)
+
+Modificador (
+	int: Id,
+	String: Nome,
+	String: Tipo,
+	String: Descricao
+)
+
+Conjunto (
+	int: Id,
+	String: Nome,
+	Guardiao: Guardiao,
+	Arma: Cinetica,
+	Arma: Energetica,
+	Arma: Pesada,
+	Armadura: Elmo,
+	Armadura: Torso,
+	Armadura: Manoplas,
+	Armadura: Botas,
+	Armadura: Item de Classe
+)
+
+Vantagem (
+	int: Id,
+	String: Nome,
+	String: Tipo,
+	String: Descricao
+)
+
+Guardiao (
+	int: Id,
+	String: Nome,
+	String: Classe,
+	String: Nivel
+)
