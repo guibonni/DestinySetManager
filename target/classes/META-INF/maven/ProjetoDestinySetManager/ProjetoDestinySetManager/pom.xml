@@ -1,0 +1,8 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ProjetoDestinySetManager</groupId>
+  <artifactId>ProjetoDestinySetManager</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>ProjetoDestinySetManager</name>
+  <description>Projeto feito para a aula de OPT que organiza Conjuntos de armaduras do jogo Destiny 2</description>
+</project>
