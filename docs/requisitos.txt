@@ -1,0 +1,9 @@
+- Manter Armors
+- Manter Weapons
+- Manter Mods
+- Manter Perks
+- Manter Guardians
+- Manter Sets
+- Gerar Set
+- Calcular atributos do Set
+- Calcular poder do Set

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>Armaduras</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<strong>Armaduras</strong>
+		</div>
+		<div class="panel-body">
+			<div class="table-responsive">
+				<table class="table table-sm table-striped table-hover table-bordered">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Nome</th>
+							<th>Poder</th>
+							<th>Raridade</th>
+							<th>Categoria</th>
+							<th>Classe</th>
+							<th>Resiliência</th>
+							<th>Mobilidade</th>
+							<th>Recuperação</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="armadura : ${armaduras}">
+							<td th:text="${armadura.id}"></td>
+							<td th:text="${armadura.nome}"></td>
+							<td th:text="${armadura.poder}"></td>
+							<td th:text="${armadura.raridade}"></td>
+							<td th:text="${armadura.categoria}"></td>
+							<td th:text="${armadura.classe}"></td>
+							<td th:text="${armadura.resiliencia}"></td>
+							<td th:text="${armadura.mobilidade}"></td>
+							<td th:text="${armadura.recuperacao}"></td>
+							<td>
+								<div class="btn-group pull-right">
+							   		<a class="btn btn-sm btn-primary" th:href="@{/armadura/edit/{id}(id=${armadura.id})}" >Editar</a>
+							   		<a class="delete btn btn-sm btn-danger" th:href="@{/armadura/delete/{id}(id=${armadura.id})}">Excluir</a>
+							   </div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="panel-footer">
+			<a class="btn btn-sm btn-success" th:href="@{/armadura/add/}" >Adicionar</a>
+		</div>
+	</div>
+</body>
+</html>
