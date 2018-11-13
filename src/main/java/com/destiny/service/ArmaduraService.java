@@ -19,6 +19,10 @@ public class ArmaduraService {
 	public Armadura findOne(int id) {
 		return repository.findOne(id);
 	}
+	
+	public List<Armadura> findByCategoria(String categoria) {
+		return repository.findByCategoria(categoria);
+	}
 
 	public Armadura save(Armadura post) {
 		return repository.saveAndFlush(post);

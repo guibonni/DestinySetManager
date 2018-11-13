@@ -1,5 +1,9 @@
 package com.destiny.controller;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +43,21 @@ public class ConjuntoController {
 	public ModelAndView add(Conjunto conjunto) {
 
 		ModelAndView mv = new ModelAndView("/conjuntoAdd");
+		
+		List<String> cinetica = Collections.singletonList("Cinética");
+		List<String> elemental = Arrays.asList("Solar", "Vácuo", "Arco");
+		List<String> pesada = Collections.singletonList("Pesada");
+		List<String> normais = Arrays.asList("Primária", "Especial");
+		
 		mv.addObject("conjunto", conjunto);
-		mv.addObject("armas", serviceArma.findAll());
-		mv.addObject("armaduras", serviceArmadura.findAll());
+		mv.addObject("cineticas", serviceArma.findByCategoriaInAndElementoIn(normais, cinetica));
+		mv.addObject("energeticas", serviceArma.findByCategoriaInAndElementoIn(normais, elemental));
+		mv.addObject("poderosas", serviceArma.findByCategoriaInAndElementoIn(pesada, elemental));
+		mv.addObject("elmos", serviceArmadura.findByCategoria("Elmo"));
+		mv.addObject("bracos", serviceArmadura.findByCategoria("Braço"));
+		mv.addObject("peitos", serviceArmadura.findByCategoria("Peito"));
+		mv.addObject("pernas", serviceArmadura.findByCategoria("Perna"));
+		mv.addObject("itensDeClasse", serviceArmadura.findByCategoria("Item de Classe"));
 		mv.addObject("guardioes", serviceGuardiao.findAll());
 
 		return mv;

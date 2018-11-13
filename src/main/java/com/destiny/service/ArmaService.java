@@ -19,6 +19,10 @@ public class ArmaService {
 	public Arma findOne(int id) {
 		return repository.findOne(id);
 	}
+	
+	public List<Arma> findByCategoriaInAndElementoIn(List<String> categorias, List<String> elementos) {
+		return repository.findByCategoriaInAndElementoIn(categorias, elementos);
+	}
 
 	public Arma save(Arma post) {
 		return repository.saveAndFlush(post);
