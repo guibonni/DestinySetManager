@@ -84,14 +84,14 @@ public class Arma extends Equipamento implements Serializable{
 	}
 	
 	public boolean validar() {
-		boolean vTipo = this.getTipo().equals("Primária") || this.getTipo().equals("Especial") || this.getTipo().equals("Pesada");
+		boolean vCatg = this.getCategoria().equals("Primária") || this.getCategoria().equals("Especial") || this.getCategoria().equals("Pesada");
 		boolean vElem = this.getElemento().equals("Cinético") || this.getElemento().equals("Arco") || this.getElemento().equals("Solar") || this.getElemento().equals("Vácuo");
 		boolean vPoder = this.getPoder() <= 600;
 		boolean vNome = this.getNome().length() <= 100;
 		boolean vRaridade = this.getRaridade().equals("Comum") || this.getRaridade().equals("Incomum") || this.getRaridade().equals("Raro") || this.getRaridade().equals("Lendário") || this.getRaridade().equals("Exótico");
 		boolean vPesada = (this.getTipo().equals("Pesada") ? !this.getElemento().equals("Cinético") : true);
 		
-		return vTipo && vElem && vPoder && vNome && vRaridade && vPesada;
+		return vCatg && vElem && vPoder && vNome && vRaridade && vPesada;
 	}
 	
 }

@@ -7,6 +7,10 @@
 	<title>Cadastro de Modificador</title>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </head>
 <body>
 	<div class="panel panel-default">
@@ -20,17 +24,38 @@
             <li>
               <a class="nav-link" th:href="@{/guardiao/}">Guardiões</a>
             </li>
-            <li class="active">
-              <a class="nav-link" th:href="@{/modificador/}">Modificadores</a>
+            <li class="dropdown active">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modificadores <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+          	    <li><a th:href="@{/modificador/arma/}">Armas</a></li>
+          	    <li><a th:href="@{/modificador/armadura/}">Armaduras</a></li>
+              </ul>
             </li>
-            <li>
-              <a class="nav-link" th:href="@{/vantagem/}">Vantagens</a>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Vantagens <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+          	    <li><a th:href="@{/vantagem/arma/}">Armas</a></li>
+          	    <li><a th:href="@{/vantagem/armadura/}">Armaduras</a></li>
+              </ul>
             </li>
-            <li>
-              <a class="nav-link" th:href="@{/arma/}">Armas</a>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Armas <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+          	    <li><a th:href="@{/arma/cinetica/}">Cinéticas</a></li>
+          	    <li><a th:href="@{/arma/energetica/}">Energéticas</a></li>
+          	    <li><a th:href="@{/arma/poderosa/}">Poderosas</a></li>
+          	    <li><a th:href="@{/arma/exotica/}">Exóticas</a></li>
+              </ul>
             </li>
-            <li>
-              <a class="nav-link" th:href="@{/armadura/}">Armaduras</a>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Armaduras <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+          	    <li><a th:href="@{/armadura/elmo/}">Elmos</a></li>
+          	    <li><a th:href="@{/armadura/peito/}">Peitos</a></li>
+          	    <li><a th:href="@{/armadura/braco/}">Braços</a></li>
+          	    <li><a th:href="@{/armadura/perna/}">Pernas</a></li>
+          	    <li><a th:href="@{/armadura/classe/}">Itens de Classe</a></li>
+              </ul>
             </li>
             <li>
               <a class="nav-link" th:href="@{/conjunto/}">Conjuntos</a>
