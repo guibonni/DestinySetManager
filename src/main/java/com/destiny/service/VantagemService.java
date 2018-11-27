@@ -16,6 +16,10 @@ public class VantagemService {
 		return repository.findAll();
 	}
 
+	public List<Vantagem> findByTipoIn(List<String> tipos) {
+		return repository.findByTipoIn(tipos);
+	}
+
 	public Vantagem findOne(int id) {
 		return repository.findOne(id);
 	}

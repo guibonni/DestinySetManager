@@ -36,6 +36,16 @@ public class GuardiaoController {
 
 		return mv;
 	}
+	
+	public ModelAndView add(Guardiao guardiao, String mensagem) {
+
+		ModelAndView mv = new ModelAndView("/guardiaoAdd");
+		mv.addObject("guardiao", guardiao);
+		mv.addObject("mensagem", mensagem);
+		mv.addObject("temMensagem", true);
+
+		return mv;
+	}
 
 	@GetMapping("/guardiao/edit/{id}")
 	public ModelAndView edit(@PathVariable("id") int id) {
@@ -54,12 +64,18 @@ public class GuardiaoController {
 	@PostMapping("/guardiao/save")
 	public ModelAndView save(@Valid Guardiao guardiao, BindingResult result) {
 
-		if (result.hasErrors()) {
-			return add(guardiao);
+		
+		if (guardiao.validar()) {
+			if (result.hasErrors()) {
+				return add(guardiao);
+			}
+
+			service.save(guardiao);
+
+			return findAll();
+		} else {
+			return add(guardiao, "Falha na validação dos dados. Verifique se as informações estão corretas.");
 		}
-
-		service.save(guardiao);
-
-		return findAll();
+		
 	}
 }

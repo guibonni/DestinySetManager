@@ -11,4 +11,6 @@ import com.destiny.model.Arma;
 public interface ArmaRepository extends JpaRepository<Arma, Integer> {
 	
 	List<Arma> findByCategoriaInAndElementoIn(List<String> categorias, List<String> elementos);
+
+	List<Arma> findByRaridade(String raridade);
 }

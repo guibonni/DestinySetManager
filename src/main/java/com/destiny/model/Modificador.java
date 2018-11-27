@@ -68,5 +68,12 @@ public class Modificador implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+	public boolean validar() {
+		boolean vNome = this.getNome().length() <= 100;
+		boolean vDesc = this.getDescricao().length() <= 300;
+		
+		return vNome && vDesc;
+	}
 
 }

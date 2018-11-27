@@ -10,6 +10,35 @@
 </head>
 <body>
 	<div class="panel panel-default">
+		<nav class="navbar navbar-inverse navbar-fixed-top" id="mainNav">
+      <div class="container">
+      	<div class="navbar-header">
+      		<a class="navbar-brand" th:href="@{/home/}">Destiny Set Manager</a>
+      	</div>
+        <div class="navbar-collapse collapse" id="navbarResponsive">
+          <ul class="nav navbar-nav">
+            <li>
+              <a class="nav-link" th:href="@{/guardiao/}">Guardiões</a>
+            </li>
+            <li>
+              <a class="nav-link" th:href="@{/modificador/}">Modificadores</a>
+            </li>
+            <li>
+              <a class="nav-link" th:href="@{/vantagem/}">Vantagens</a>
+            </li>
+            <li class="active">
+              <a class="nav-link" th:href="@{/arma/}">Armas</a>
+            </li>
+            <li>
+              <a class="nav-link" th:href="@{/armadura/}">Armaduras</a>
+            </li>
+            <li>
+              <a class="nav-link" th:href="@{/conjunto/}">Conjuntos</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 		<div class="panel-heading">
 			<strong>Cadastro de Arma</strong>
 		</div>
@@ -18,6 +47,9 @@
 				<div class="form-group">
  					<fieldset>
 						<div class="form-group row">
+							<div class="alert alert-danger" th:if="${temMensagem}">
+						    <span th:text="${mensagem}"></span>
+						  </div>
 							<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
 								<div th:each="detailedError : ${#fields.detailedErrors()}">
 									<span th:text="${detailedError.message}"></span>

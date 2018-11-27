@@ -44,12 +44,37 @@ public class ConjuntoController {
 
 		ModelAndView mv = new ModelAndView("/conjuntoAdd");
 		
-		List<String> cinetica = Collections.singletonList("Cinética");
+		List<String> cinetica = Collections.singletonList("Cinético");
 		List<String> elemental = Arrays.asList("Solar", "Vácuo", "Arco");
 		List<String> pesada = Collections.singletonList("Pesada");
 		List<String> normais = Arrays.asList("Primária", "Especial");
 		
 		mv.addObject("conjunto", conjunto);
+		mv.addObject("cineticas", serviceArma.findByCategoriaInAndElementoIn(normais, cinetica));
+		mv.addObject("energeticas", serviceArma.findByCategoriaInAndElementoIn(normais, elemental));
+		mv.addObject("poderosas", serviceArma.findByCategoriaInAndElementoIn(pesada, elemental));
+		mv.addObject("elmos", serviceArmadura.findByCategoria("Elmo"));
+		mv.addObject("bracos", serviceArmadura.findByCategoria("Braço"));
+		mv.addObject("peitos", serviceArmadura.findByCategoria("Peito"));
+		mv.addObject("pernas", serviceArmadura.findByCategoria("Perna"));
+		mv.addObject("itensDeClasse", serviceArmadura.findByCategoria("Item de Classe"));
+		mv.addObject("guardioes", serviceGuardiao.findAll());
+
+		return mv;
+	}
+	
+	public ModelAndView add(Conjunto conjunto, String mensagem) {
+
+		ModelAndView mv = new ModelAndView("/conjuntoAdd");
+		
+		List<String> cinetica = Collections.singletonList("Cinético");
+		List<String> elemental = Arrays.asList("Solar", "Vácuo", "Arco");
+		List<String> pesada = Collections.singletonList("Pesada");
+		List<String> normais = Arrays.asList("Primária", "Especial");
+		
+		mv.addObject("conjunto", conjunto);
+		mv.addObject("mensagem", mensagem);
+		mv.addObject("temMensagem", true);
 		mv.addObject("cineticas", serviceArma.findByCategoriaInAndElementoIn(normais, cinetica));
 		mv.addObject("energeticas", serviceArma.findByCategoriaInAndElementoIn(normais, elemental));
 		mv.addObject("poderosas", serviceArma.findByCategoriaInAndElementoIn(pesada, elemental));
@@ -79,13 +104,20 @@ public class ConjuntoController {
 
 	@PostMapping("/conjunto/save")
 	public ModelAndView save(@Valid Conjunto conjunto, BindingResult result) {
-
-		if (result.hasErrors()) {
-			return add(conjunto);
+		
+		if (conjunto.validar()) {
+			conjunto.gerarPoder();
+			
+			if (result.hasErrors()) {
+				return add(conjunto);
+			}
+	
+			service.save(conjunto);
+	
+			return findAll();
+		} else {
+			return add(conjunto, "Falha na validação dos dados. Verifique se as informações estão corretas.");
 		}
-
-		service.save(conjunto);
-
-		return findAll();
+			
 	}
 }

@@ -1,11 +1,7 @@
 - Se um Equipamento for de raridade exótica, ele não pode ter vantagem2, vantagem4 e mod
 - O poder de um Equipamento não pode ser superior a 600
-- Se uma Arma já tiver cano, ela não pode ter mira
-- Se uma Arma já tiver mira, ela não pode ter cano
-- Se uma Arma já tiver municao, ela não pode ter carregador
-- Se uma Arma já tiver carregador, ela não pode ter municao
 - Se o tipo de uma Arma for pesada, seu elemento não poderá ser cinético
-- Em uma Armadura, a soma dos atributos resiliencia, mobilidade e recuperacao deve ser 4
+- Em uma Armadura, a soma dos atributos resiliencia, mobilidade e recuperacao deve ser 3
 - Um Conjunto só pode ter uma Armadura de raridade exótica
 - Um Conjunto só pode ter uma Arma de raridade exótica
 - Em um Conjunto, cinetica deve ser uma Arma do tipo primária ou especial, e do elemento cinético

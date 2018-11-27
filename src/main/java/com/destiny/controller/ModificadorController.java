@@ -28,11 +28,39 @@ public class ModificadorController {
 		return mv;
 	}
 
+	@GetMapping("/modificador/arma/")
+	public ModelAndView findAllArma() {
+
+		ModelAndView mv = new ModelAndView("/modificador");
+		mv.addObject("modificadores", service.findByTipo("W"));
+
+		return mv;
+	}
+
+	@GetMapping("/modificador/armadura/")
+	public ModelAndView findAllArmadura() {
+
+		ModelAndView mv = new ModelAndView("/modificador");
+		mv.addObject("modificadores", service.findByTipo("A"));
+
+		return mv;
+	}
+
 	@GetMapping("/modificador/add")
 	public ModelAndView add(Modificador modificador) {
 
 		ModelAndView mv = new ModelAndView("/modificadorAdd");
 		mv.addObject("modificador", modificador);
+
+		return mv;
+	}
+	
+	public ModelAndView add(Modificador modificador, String mensagem) {
+
+		ModelAndView mv = new ModelAndView("/modificadorAdd");
+		mv.addObject("modificador", modificador);
+		mv.addObject("mensagem", mensagem);
+		mv.addObject("temMensagem", true);
 
 		return mv;
 	}
@@ -54,12 +82,20 @@ public class ModificadorController {
 	@PostMapping("/modificador/save")
 	public ModelAndView save(@Valid Modificador modificador, BindingResult result) {
 
-		if (result.hasErrors()) {
-			return add(modificador);
+		if (modificador.validar()) {
+			if (result.hasErrors()) {
+				return add(modificador);
+			}
+
+			service.save(modificador);
+
+			if (modificador.getTipo().equals("A")) {
+				return findAllArmadura();
+			} else {
+				return findAllArma();
+			}
+		} else {
+			return add(modificador, "Falha na validação dos dados. Verifique se as informações estão corretas.");
 		}
-
-		service.save(modificador);
-
-		return findAll();
 	}
 }

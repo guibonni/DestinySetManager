@@ -4,20 +4,52 @@
 	<meta charset="UTF-8" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width" />
-	<title>Cadastro de Arma</title>
+	<title>Cadastro de Conjunto</title>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<div class="panel panel-default">
+		<nav class="navbar navbar-inverse navbar-fixed-top" id="mainNav">
+      <div class="container">
+      	<div class="navbar-header">
+      		<a class="navbar-brand" th:href="@{/home/}">Destiny Set Manager</a>
+      	</div>
+        <div class="navbar-collapse collapse" id="navbarResponsive">
+          <ul class="nav navbar-nav">
+            <li>
+              <a class="nav-link" th:href="@{/guardiao/}">Guardiões</a>
+            </li>
+            <li>
+              <a class="nav-link" th:href="@{/modificador/}">Modificadores</a>
+            </li>
+            <li>
+              <a class="nav-link" th:href="@{/vantagem/}">Vantagens</a>
+            </li>
+            <li>
+              <a class="nav-link" th:href="@{/arma/}">Armas</a>
+            </li>
+            <li>
+              <a class="nav-link" th:href="@{/armadura/}">Armaduras</a>
+            </li>
+            <li class="active">
+              <a class="nav-link" th:href="@{/conjunto/}">Conjuntos</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 		<div class="panel-heading">
-			<strong>Cadastro de Arma</strong>
+			<strong>Cadastro de Conjunto</strong>
 		</div>
 		<div class="panel-body">
-			<form class="form-horizontal" th:object="${arma}" th:action="@{/arma/save}" method="POST" style="margin: 10px">
+			<form class="form-horizontal" th:object="${conjunto}" th:action="@{/conjunto/save}" method="POST" style="margin: 10px">
 				<div class="form-group">
  					<fieldset>
 						<div class="form-group row">
+							<div class="alert alert-danger" th:if="${temMensagem}">
+						    <span th:text="${mensagem}"></span>
+						  </div>
 							<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
 								<div th:each="detailedError : ${#fields.detailedErrors()}">
 									<span th:text="${detailedError.message}"></span>
@@ -38,146 +70,87 @@
 				    <div class="form-group row">                                                          
 							<div class="col-md-4" th:classappend="${#fields.hasErrors('poder')}? 'has-error'">
 							    <label>Poder</label>
-							    <input type="number" class="form-control input-sm" th:field="*{poder}" min="20" max="600"/>
-							</div>
-						</div>
-						<div class="form-group row">                                                          
-							<div class="col-md-4" th:classappend="${#fields.hasErrors('raridade')}? 'has-error'">
-							    <label>Raridade</label>
-							    <select id="raridade" th:field="*{raridade}" class="form-control input-sm">
-								    <option value="" selected="selected"></option>
-								    <option value="Comum">Comum</option>
-								    <option value="Incomum">Incomum</option>
-								    <option value="Raro">Raro</option>
-								    <option value="Lendário">Lendário</option>
-								    <option value="Exótico">Exótico</option>
-							    </select>
-							</div>
-						</div>
-						<div class="form-group row">                                                          
-							<div class="col-md-4" th:classappend="${#fields.hasErrors('categoria')}? 'has-error'">
-							    <label>Categoria</label>
-							    <select id="categoria" th:field="*{categoria}" class="form-control input-sm">
-								    <option value="" selected="selected"></option>
-								    <option value="Primária">Primária</option>
-								    <option value="Especial">Especial</option>
-								    <option value="Pesada">Pesada</option>
-							    </select>
-							</div>
-						</div>
-						<div class="form-group row">                                                          
-							<div class="col-md-4" th:classappend="${#fields.hasErrors('elemento')}? 'has-error'">
-							    <label>Elemento</label>
-							    <select id="elemento" th:field="*{elemento}" class="form-control input-sm">
-								    <option value="" selected="selected"></option>
-								    <option value="Arco">Arco</option>
-								    <option value="Cinético">Cinético</option>
-								    <option value="Solar">Solar</option>
-								    <option value="Vácuo">Vácuo</option>
-							    </select>
-							</div>
-						</div>
-						<div class="form-group row">                                                          
-							<div class="col-md-4" th:classappend="${#fields.hasErrors('tipo')}? 'has-error'">
-							    <label>Tipo</label>
-							    <select id="tipo" th:field="*{tipo}" class="form-control input-sm">
-								    <option value="" selected="selected"></option>
-								    <option value="Arco">Arco</option>
-								    <option value="Canhão de Mão">Canhão de Mão</option>
-								    <option value="Escopeta">Escopeta</option>
-								    <option value="Espada">Espada</option>
-								    <option value="Fuzil Automático">Fuzil Automático</option>
-								    <option value="Fuzil de Batedor">Fuzil de Batedor</option>
-								    <option value="Fuzil de Fusão">Fuzil de Fusão</option>
-								    <option value="Fuzil de Pulso">Fuzil de Pulso</option>
-								    <option value="Fuzil Laser">Fuzil Laser</option>
-								    <option value="Lança-Foguetes">Lança-Foguetes</option>
-								    <option value="Lança-Granadas">Lança-Granadas</option>
-								    <option value="Metralhadora">Metralhadora</option>
-								    <option value="Pistola">Pistola</option>
-								    <option value="Rifle de Precisão">Rifle de Precisão</option>
-								    <option value="Submetralhadora">Submetralhadora</option>
-							    </select>
+							    <input type="number" class="form-control input-sm" th:field="*{poder}" readOnly="readonly"/>
 							</div>
 						</div>
 				    <div class="form-group row">
-							<div class="col-md-4" th:classappend="${#fields.hasErrors('mira')}? 'has-error'">
-								<label>Mira</label> 
-								<select id="mira" th:field="*{mira}" class="form-control input-sm">
+							<div class="col-md-4" th:classappend="${#fields.hasErrors('guardiao')}? 'has-error'">
+								<label>Guardião</label> 
+								<select id="mira" th:field="*{guardiao}" class="form-control input-sm">
 							    <option value="" selected="selected"></option>
-							    <option th:each="mira : ${miras}"  th:value="${mira.id}" th:text="${mira.nome}"></option>
+							    <option th:each="guardiao : ${guardioes}"  th:value="${guardiao.id}" th:text="${guardiao.nome}"></option>
 						    </select>
 					    </div>
 						</div>
 						<div class="form-group row">
-							<div class="col-md-4" th:classappend="${#fields.hasErrors('cano')}? 'has-error'">
-								<label>Cano</label> 
-								<select id="cano" th:field="*{cano}" class="form-control input-sm">
+							<div class="col-md-4" th:classappend="${#fields.hasErrors('cinetica')}? 'has-error'">
+								<label>Cinética</label> 
+								<select id="cinetica" th:field="*{cinetica}" class="form-control input-sm">
 							    <option value="" selected="selected"></option>
-							    <option th:each="cano : ${canos}"  th:value="${cano.id}" th:text="${cano.nome}"></option>
+							    <option th:each="cinetica : ${cineticas}"  th:value="${cinetica.id}" th:text="${cinetica.nome}"></option>
 						    </select>
 					    </div>
 						</div>
 						<div class="form-group row">
-							<div class="col-md-4" th:classappend="${#fields.hasErrors('municao')}? 'has-error'">
-								<label>Munição</label> 
-								<select id="municao" th:field="*{municao}" class="form-control input-sm">
+							<div class="col-md-4" th:classappend="${#fields.hasErrors('energetica')}? 'has-error'">
+								<label>Energética</label> 
+								<select id="energetica" th:field="*{energetica}" class="form-control input-sm">
 							    <option value="" selected="selected"></option>
-							    <option th:each="municao : ${municoes}"  th:value="${municao.id}" th:text="${municao.nome}"></option>
+							    <option th:each="energetica : ${energeticas}"  th:value="${energetica.id}" th:text="${energetica.nome}"></option>
 						    </select>
 					    </div>
 						</div>
 						<div class="form-group row">
-							<div class="col-md-4" th:classappend="${#fields.hasErrors('carregador')}? 'has-error'">
-								<label>Carregador</label> 
-								<select id="carregador" th:field="*{carregador}" class="form-control input-sm">
+							<div class="col-md-4" th:classappend="${#fields.hasErrors('poderosa')}? 'has-error'">
+								<label>Poderosa</label> 
+								<select id="poderosa" th:field="*{poderosa}" class="form-control input-sm">
 							    <option value="" selected="selected"></option>
-							    <option th:each="carregador : ${carregadores}"  th:value="${carregador.id}" th:text="${carregador.nome}"></option>
+							    <option th:each="poderosa : ${poderosas}"  th:value="${poderosa.id}" th:text="${poderosa.nome}"></option>
 						    </select>
 					    </div>
 						</div>
 						<div class="form-group row">
-							<div class="col-md-4" th:classappend="${#fields.hasErrors('vantagem1')}? 'has-error'">
-								<label>Primeira Vantagem</label> 
-								<select id="vantagem1" th:field="*{vantagem1}" class="form-control input-sm">
+							<div class="col-md-4" th:classappend="${#fields.hasErrors('elmo')}? 'has-error'">
+								<label>Elmo</label> 
+								<select id="elmo" th:field="*{elmo}" class="form-control input-sm">
 							    <option value="" selected="selected"></option>
-							    <option th:each="vantagem : ${vantagens}"  th:value="${vantagem.id}" th:text="${vantagem.nome}"></option>
+							    <option th:each="elmo : ${elmos}"  th:value="${elmo.id}" th:text="${elmo.nome}"></option>
 						    </select>
 					    </div>
 						</div>
 						<div class="form-group row">
-							<div class="col-md-4" th:classappend="${#fields.hasErrors('vantagem2')}? 'has-error'">
-								<label>Segunda Vantagem</label> 
-								<select id="vantagem2" th:field="*{vantagem2}" class="form-control input-sm">
+							<div class="col-md-4" th:classappend="${#fields.hasErrors('peito')}? 'has-error'">
+								<label>Peito</label> 
+								<select id="peito" th:field="*{peito}" class="form-control input-sm">
 							    <option value="" selected="selected"></option>
-							    <option th:each="vantagem : ${vantagens}"  th:value="${vantagem.id}" th:text="${vantagem.nome}"></option>
+							    <option th:each="peito : ${peitos}"  th:value="${peito.id}" th:text="${peito.nome}"></option>
 						    </select>
 					    </div>
 						</div>
 						<div class="form-group row">
-							<div class="col-md-4" th:classappend="${#fields.hasErrors('vantagem3')}? 'has-error'">
-								<label>Terceira Vantagem</label> 
-								<select id="vantagem3" th:field="*{vantagem3}" class="form-control input-sm">
+							<div class="col-md-4" th:classappend="${#fields.hasErrors('braco')}? 'has-error'">
+								<label>Braço</label> 
+								<select id="braco" th:field="*{braco}" class="form-control input-sm">
 							    <option value="" selected="selected"></option>
-							    <option th:each="vantagem : ${vantagens}"  th:value="${vantagem.id}" th:text="${vantagem.nome}"></option>
+							    <option th:each="braco : ${bracos}"  th:value="${braco.id}" th:text="${braco.nome}"></option>
 						    </select>
 					    </div>
 						</div>
 						<div class="form-group row">
-							<div class="col-md-4" th:classappend="${#fields.hasErrors('vantagem4')}? 'has-error'">
-								<label>Quarta Vantagem</label> 
-								<select id="vantagem4" th:field="*{vantagem4}" class="form-control input-sm">
+							<div class="col-md-4" th:classappend="${#fields.hasErrors('perna')}? 'has-error'">
+								<label>Perna</label> 
+								<select id="perna" th:field="*{perna}" class="form-control input-sm">
 							    <option value="" selected="selected"></option>
-							    <option th:each="vantagem : ${vantagens}"  th:value="${vantagem.id}" th:text="${vantagem.nome}"></option>
+							    <option th:each="perna : ${pernas}"  th:value="${perna.id}" th:text="${perna.nome}"></option>
 						    </select>
 					    </div>
 						</div>
 						<div class="form-group row">
-							<div class="col-md-4" th:classappend="${#fields.hasErrors('mod')}? 'has-error'">
-								<label>Mod</label> 
-								<select id="mod" th:field="*{mod}" class="form-control input-sm">
+							<div class="col-md-4" th:classappend="${#fields.hasErrors('itemDeClasse')}? 'has-error'">
+								<label>Item de Classe</label> 
+								<select id="itemDeClasse" th:field="*{itemDeClasse}" class="form-control input-sm">
 							    <option value="" selected="selected"></option>
-							    <option th:each="modificador : ${modificadores}"  th:value="${modificador.id}" th:text="${modificador.nome}"></option>
+							    <option th:each="itemDeClasse : ${itensDeClasse}"  th:value="${itemDeClasse.id}" th:text="${itemDeClasse.nome}"></option>
 						    </select>
 					    </div>
 						</div>
@@ -185,7 +158,7 @@
 				</div>
 				<div class="form-group row">
 					<button type="submit" class="btn btn-sm btn-primary">Salvar</button>
-					<a th:href="@{/arma/}" class="btn btn-sm btn-default">Cancelar</a>
+					<a th:href="@{/conjunto/}" class="btn btn-sm btn-default">Cancelar</a>
 				</div>
 			</form>
 		</div>

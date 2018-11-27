@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -25,6 +26,10 @@ public class Conjunto implements Serializable{
 	@Column(nullable = false, length = 100)
 	@NotBlank(message = "Nome é uma informação obrigatória.")
 	private String nome;
+	
+	@Column(nullable = false)
+	@NotNull
+	private int poder;
 	
 	@ManyToOne
 	private Guardiao guardiao;
@@ -139,6 +144,68 @@ public class Conjunto implements Serializable{
 
 	public void setItemDeClasse(Armadura itemDeClasse) {
 		this.itemDeClasse = itemDeClasse;
+	}
+	
+	public int getPoder() {
+		return poder;
+	}
+	
+	public void setPoder(int poder) {
+		this.poder = poder;
+	}
+	
+	public void gerarPoder() {
+		int poder = 0;
+
+		poder += this.getCinetica().getPoder();
+		poder += this.getEnergetica().getPoder();
+		poder += this.getPoderosa().getPoder();
+		poder += this.getElmo().getPoder();
+		poder += this.getPeito().getPoder();
+		poder += this.getBraco().getPoder();
+		poder += this.getPerna().getPoder();
+		poder += this.getItemDeClasse().getPoder();
+		
+		poder = poder / 8;
+		
+		this.poder = poder;
+	}
+	
+	private int contarExoticos(int tipo) {
+		int quantidade = 0;
+		
+		if (tipo == 1) {
+			quantidade += this.getCinetica().getRaridade().equals("Exótico") ? 1 : 0;
+			quantidade += this.getEnergetica().getRaridade().equals("Exótico") ? 1 : 0;
+			quantidade += this.getPoderosa().getRaridade().equals("Exótico") ? 1 : 0;
+		} else {
+			quantidade += this.getElmo().getRaridade().equals("Exótico") ? 1 : 0;
+			quantidade += this.getPeito().getRaridade().equals("Exótico") ? 1 : 0;
+			quantidade += this.getBraco().getRaridade().equals("Exótico") ? 1 : 0;
+			quantidade += this.getPerna().getRaridade().equals("Exótico") ? 1 : 0;
+			quantidade += this.getItemDeClasse().getRaridade().equals("Exótico") ? 1 : 0;
+		}
+		
+		return quantidade;
+	}
+	
+	public boolean validar() {
+		try {
+			boolean vCinetica = this.getCinetica().getElemento().equals("Cinético") && this.getCinetica().getCategoria().equals("Primária");
+			boolean vEnergetica = !this.getEnergetica().getElemento().equals("Cinética") && !this.getEnergetica().getCategoria().equals("Pesada");
+			boolean vPoderosa = !this.getPoderosa().getElemento().equals("Cinética") && this.getPoderosa().getCategoria().equals("Pesada");
+			boolean vElmo = this.getElmo().getCategoria().equals("Elmo");
+			boolean vPeito = this.getPeito().getCategoria().equals("Peito");
+			boolean vBraco = this.getBraco().getCategoria().equals("Braço");
+			boolean vPerna = this.getPerna().getCategoria().equals("Perna");
+			boolean vItemClasse = this.getItemDeClasse().getCategoria().equals("Item de Classe");
+			boolean vArmaE = this.contarExoticos(1) <= 1;
+			boolean vArmaduraE = this.contarExoticos(2) <= 1;
+			
+			return vCinetica && vEnergetica && vPoderosa && vElmo && vPeito && vBraco && vPerna && vItemClasse && vArmaE && vArmaduraE;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	public static long getSerialversionuid() {

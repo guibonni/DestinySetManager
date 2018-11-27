@@ -16,6 +16,10 @@ public class ArmaService {
 		return repository.findAll();
 	}
 
+	public List<Arma> findByRaridade(String raridade) {
+		return repository.findByRaridade(raridade);
+	}
+
 	public Arma findOne(int id) {
 		return repository.findOne(id);
 	}

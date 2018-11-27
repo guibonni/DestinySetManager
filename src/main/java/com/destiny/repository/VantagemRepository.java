@@ -11,4 +11,7 @@ import com.destiny.model.Vantagem;
 public interface VantagemRepository extends JpaRepository<Vantagem, Integer> {
 	
 	List<Vantagem> findByTipo(String tipo);
+	
+	List<Vantagem> findByTipoIn(List<String> tipos);
+
 }

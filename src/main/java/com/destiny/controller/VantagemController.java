@@ -1,5 +1,8 @@
 package com.destiny.controller;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +31,40 @@ public class VantagemController {
 		return mv;
 	}
 
+	@GetMapping("/vantagem/arma/")
+	public ModelAndView findAllArma() {
+
+		ModelAndView mv = new ModelAndView("/vantagem");
+		List<String> tipos = Arrays.asList("WE", "BA", "SI", "AM", "CL");
+		mv.addObject("vantagens", service.findByTipoIn(tipos));
+
+		return mv;
+	}
+
+	@GetMapping("/vantagem/armadura/")
+	public ModelAndView findAllArmadura() {
+
+		ModelAndView mv = new ModelAndView("/vantagem");
+		mv.addObject("vantagens", service.findByTipo("AR"));
+
+		return mv;
+	}
+
 	@GetMapping("/vantagem/add")
 	public ModelAndView add(Vantagem vantagem) {
 
 		ModelAndView mv = new ModelAndView("/vantagemAdd");
 		mv.addObject("vantagem", vantagem);
+
+		return mv;
+	}
+	
+	public ModelAndView add(Vantagem vantagem, String mensagem) {
+
+		ModelAndView mv = new ModelAndView("/vantagemAdd");
+		mv.addObject("vantagem", vantagem);
+		mv.addObject("mensagem", mensagem);
+		mv.addObject("temMensagem", true);
 
 		return mv;
 	}
@@ -54,12 +86,20 @@ public class VantagemController {
 	@PostMapping("/vantagem/save")
 	public ModelAndView save(@Valid Vantagem vantagem, BindingResult result) {
 
-		if (result.hasErrors()) {
-			return add(vantagem);
+		if (vantagem.validar()) {
+			if (result.hasErrors()) {
+				return add(vantagem);
+			}
+
+			service.save(vantagem);
+
+			if (vantagem.getTipo().equals("AR")) {
+				return findAllArmadura();
+			} else {
+				return findAllArma();
+			}
+		} else {
+			return add(vantagem, "Falha na validação dos dados. Verifique se as informações estão corretas.");
 		}
-
-		service.save(vantagem);
-
-		return findAll();
 	}
 }

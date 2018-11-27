@@ -69,5 +69,17 @@ public class Guardiao implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+	public boolean validar() {
+		try {
+			boolean vNome = this.getNome().length() <= 50;
+			boolean vNivel = Integer.parseInt(this.getNivel()) <= 50;
+			boolean vClasse = this.getClasse().equals("Caçador") || this.getClasse().equals("Titã") || this.getClasse().equals("Arcano");
+			
+			return vNome && vNivel && vClasse;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 }
